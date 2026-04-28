@@ -1,0 +1,61 @@
+# =============================================================================
+# .dockerignore — Laravel 12 CRM
+# File ini mencegah Docker menyalin file yang tidak perlu ke dalam build
+# context, sehingga `docker build` lebih cepat dan image lebih kecil.
+# Karena ini development setup (kode di-mount via volume), .dockerignore
+# terutama berguna saat Anda nanti membuat image untuk production.
+# =============================================================================
+
+# --- Dependensi (di-install ulang di dalam container) ---
+/vendor/
+/node_modules/
+
+# --- Cache & file generate Laravel ---
+/bootstrap/cache/*.php
+/storage/*.key
+/storage/logs/
+/storage/framework/cache/
+/storage/framework/sessions/
+/storage/framework/views/
+
+# --- File environment (JANGAN masuk ke image) ---
+.env
+.env.*
+!.env.example
+
+# --- Direktori Git ---
+.git/
+.gitignore
+.gitattributes
+
+# --- Testing & CI ---
+/tests/
+phpunit.xml
+.phpunit.result.cache
+/.github/
+
+# --- Docker files sendiri (tidak perlu masuk ke image) ---
+Dockerfile
+docker-compose*.yml
+.dockerignore
+
+# --- IDE & editor ---
+.idea/
+.vscode/
+*.code-workspace
+.editorconfig
+
+# --- OS artifacts ---
+.DS_Store
+Thumbs.db
+
+# --- Build tools Node.js ---
+package-lock.json
+yarn.lock
+npm-debug.log
+/public/hot
+/public/storage
+
+# --- Dokumentasi & README ---
+README.md
+CHANGELOG.md
