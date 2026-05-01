@@ -25,8 +25,10 @@ class UserFactory extends Factory
     public function definition(): array
     {
         return [
-            'name' => fake()->name(),
+            'nama' => fake('id_ID')->name(),
             'email' => fake()->unique()->safeEmail(),
+            'role' => fake()->randomElement(['admin', 'sales', 'manager']),
+            'aktif' => fake()->boolean(90), // 90% aktif
             'email_verified_at' => now(),
             'password' => static::$password ??= Hash::make('password'),
             'remember_token' => Str::random(10),
@@ -40,6 +42,36 @@ class UserFactory extends Factory
     {
         return $this->state(fn (array $attributes) => [
             'email_verified_at' => null,
+        ]);
+    }
+
+    /**
+     * Set user role as admin.
+     */
+    public function admin(): static
+    {
+        return $this->state(fn (array $attributes) => [
+            'role' => 'admin',
+        ]);
+    }
+
+    /**
+     * Set user role as sales.
+     */
+    public function sales(): static
+    {
+        return $this->state(fn (array $attributes) => [
+            'role' => 'sales',
+        ]);
+    }
+
+    /**
+     * Set user role as manager.
+     */
+    public function manager(): static
+    {
+        return $this->state(fn (array $attributes) => [
+            'role' => 'manager',
         ]);
     }
 }
