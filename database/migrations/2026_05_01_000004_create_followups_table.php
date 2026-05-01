@@ -15,12 +15,12 @@ return new class extends Migration
             $table->id();
             $table->foreignId('lead_id')->constrained('leads')->onDelete('cascade');
             $table->foreignId('sales_id')->constrained('users')->onDelete('cascade');
-            $table->string('metode')->nullable();
-            $table->string('catatan')->nullable();
-            $table->string('hasil')->nullable();
-            $table->string('status_followup')->nullable();
-            $table->dateTime('tanggal_followup')->nullable();
-            $table->dateTime('jadwal_berikutnya')->nullable();
+            $table->string('method')->nullable();
+            $table->string('note')->nullable();
+            $table->string('result')->nullable();
+            $table->string('status')->nullable();
+            $table->dateTime('followup_date')->nullable();
+            $table->dateTime('next_schedule')->nullable();
             $table->timestamps();
         });
     }

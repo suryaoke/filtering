@@ -15,21 +15,21 @@ class Lead extends Model
 
     protected $fillable = [
         'history_id',
-        'penjualan_id',
+        'sale_id',
         'sales_id',
-        'nama_lead',
-        'produk_minat',
-        'prioritas',
-        'status_lead',
-        'tanggal_distribusi',
+        'lead_name',
+        'product_interest',
+        'priority',
+        'lead_status',
+        'distribution_date',
     ];
 
     protected $casts = [
-        'tanggal_distribusi' => 'datetime',
+        'distribution_date' => 'datetime',
     ];
 
     /**
-     * Lead dimiliki oleh satu History.
+     * Lead belongs to one History.
      */
     public function history(): BelongsTo
     {
@@ -37,15 +37,15 @@ class Lead extends Model
     }
 
     /**
-     * Lead dimiliki oleh satu Penjualan.
+     * Lead belongs to one Sale.
      */
-    public function penjualan(): BelongsTo
+    public function sale(): BelongsTo
     {
-        return $this->belongsTo(Penjualan::class);
+        return $this->belongsTo(Sale::class);
     }
 
     /**
-     * Lead dimiliki oleh satu Sales (User).
+     * Lead belongs to one Sales (User).
      */
     public function sales(): BelongsTo
     {
@@ -53,7 +53,7 @@ class Lead extends Model
     }
 
     /**
-     * Lead memiliki banyak followup.
+     * Lead has many followups.
      */
     public function followups(): HasMany
     {

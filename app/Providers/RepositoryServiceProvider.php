@@ -2,8 +2,8 @@
 
 namespace App\Providers;
 
-use App\Repositories\Contracts\PenjualanRepositoryInterface;
-use App\Repositories\PenjualanRepository;
+use App\Repositories\Contracts\SalesRepositoryInterface;
+use App\Repositories\SalesRepository;
 use Illuminate\Support\ServiceProvider;
 
 class RepositoryServiceProvider extends ServiceProvider
@@ -14,8 +14,10 @@ class RepositoryServiceProvider extends ServiceProvider
      * @var array<string, string>
      */
     protected array $repositories = [
-        PenjualanRepositoryInterface::class => PenjualanRepository::class,
+        SalesRepositoryInterface::class => SalesRepository::class,
+        \App\Repositories\Contracts\ProductRepositoryInterface::class => \App\Repositories\ProductRepository::class,
         \App\Repositories\Contracts\AuthRepositoryInterface::class => \App\Repositories\AuthRepository::class,
+        \App\Repositories\Contracts\DashboardRepositoryInterface::class => \App\Repositories\DashboardRepository::class,
     ];
 
     /**

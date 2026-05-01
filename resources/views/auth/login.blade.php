@@ -1,202 +1,116 @@
-<!DOCTYPE html>
-<html lang="id">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login - CRM Sistem</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
-    <style>
-        :root {
-            --primary: #4f46e5;
-            --primary-hover: #4338ca;
-            --gray-50: #f9fafb;
-            --gray-100: #f3f4f6;
-            --gray-200: #e5e7eb;
-            --gray-300: #d1d5db;
-            --gray-400: #9ca3af;
-            --gray-500: #6b7280;
-            --gray-600: #4b5563;
-            --gray-700: #374151;
-            --gray-800: #1f2937;
-            --gray-900: #111827;
-            --danger: #dc2626;
-            --danger-light: #fee2e2;
-        }
+{{--
+    resources/views/auth/login.blade.php
+    Halaman Login — extend layout auth.blade.php
+--}}
+@extends('layouts.auth')
 
-        * { margin: 0; padding: 0; box-sizing: border-box; }
+@section('title', 'Login')
 
-        body {
-            font-family: 'Inter', sans-serif;
-            background: var(--gray-50);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            min-height: 100vh;
-            color: var(--gray-800);
-        }
+@section('auth-info-title')
+    A few more clicks to <br> sign in to your account.
+@endsection
 
-        .login-container {
-            background: #fff;
-            width: 100%;
-            max-width: 400px;
-            padding: 40px;
-            border-radius: 16px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.05), 0 4px 6px rgba(0,0,0,0.02);
-            border: 1px solid var(--gray-100);
-        }
+@section('auth-info-subtitle')
+    Manage all your e-commerce accounts in one place
+@endsection
 
-        .login-header {
-            text-align: center;
-            margin-bottom: 32px;
-        }
+@section('form')
 
-        .login-header i {
-            font-size: 42px;
-            color: var(--primary);
-            margin-bottom: 16px;
-        }
+    <h2 class="intro-x font-bold text-2xl xl:text-3xl text-center xl:text-left">
+        Sign In
+    </h2>
 
-        .login-header h1 {
-            font-size: 24px;
-            font-weight: 700;
-            color: var(--gray-900);
-            letter-spacing: -0.5px;
-        }
+    <div class="intro-x mt-2 text-slate-400 xl:hidden text-center">
+        A few more clicks to sign in to your account.<br>
+        Manage all your e-commerce accounts in one place
+    </div>
 
-        .login-header p {
-            color: var(--gray-500);
-            font-size: 14px;
-            margin-top: 6px;
-        }
+    {{-- Flash / error messages --}}
+    @if ($errors->any())
+        <div class="alert alert-danger-soft show flex items-center mb-2 mt-4" role="alert">
+            <i data-lucide="alert-octagon" class="w-6 h-6 mr-2"></i>
+            <ul class="list-disc ml-4">
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
 
-        .form-group {
-            margin-bottom: 20px;
-        }
+    @if (session('status'))
+        <div class="alert alert-success-soft show flex items-center mb-2 mt-4" role="alert">
+            <i data-lucide="check-circle" class="w-6 h-6 mr-2"></i>
+            {{ session('status') }}
+        </div>
+    @endif
 
-        .form-group label {
-            display: block;
-            font-size: 13px;
-            font-weight: 600;
-            color: var(--gray-700);
-            margin-bottom: 8px;
-        }
+    <form method="POST" action="{{ route('login.post') }}">
+        @csrf
 
-        .form-control {
-            width: 100%;
-            padding: 12px 16px;
-            border: 1px solid var(--gray-300);
-            border-radius: 10px;
-            font-size: 14px;
-            font-family: inherit;
-            transition: all 0.2s;
-        }
+        <div class="intro-x mt-8">
+            {{-- Email --}}
+            <input
+                id="email"
+                type="email"
+                name="email"
+                value="{{ old('email') }}"
+                required
+                autocomplete="email"
+                autofocus
+                placeholder="Email"
+                class="intro-x login__input form-control py-3 px-4 block
+                       {{ $errors->has('email') ? 'border-danger' : '' }}"
+            >
 
-        .form-control:focus {
-            outline: none;
-            border-color: var(--primary);
-            box-shadow: 0 0 0 3px rgba(79,70,229,.15);
-        }
-
-        .form-control.is-invalid {
-            border-color: var(--danger);
-        }
-
-        .invalid-feedback {
-            font-size: 12px;
-            color: var(--danger);
-            margin-top: 6px;
-        }
-
-        .form-options {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            margin-bottom: 24px;
-        }
-
-        .checkbox-container {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            font-size: 13px;
-            color: var(--gray-600);
-            cursor: pointer;
-        }
-
-        .btn-login {
-            width: 100%;
-            background: var(--primary);
-            color: #fff;
-            padding: 12px;
-            border: none;
-            border-radius: 10px;
-            font-size: 15px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: background 0.2s;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .btn-login:hover {
-            background: var(--primary-hover);
-        }
-
-        .alert-danger {
-            background: var(--danger-light);
-            color: #991b1b;
-            padding: 12px 16px;
-            border-radius: 8px;
-            font-size: 13px;
-            margin-bottom: 20px;
-            border: 1px solid #fca5a5;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-    </style>
-</head>
-<body>
-    <div class="login-container">
-        <div class="login-header">
-            <i class="fas fa-chart-line"></i>
-            <h1>CRM Sistem</h1>
-            <p>Silakan login untuk melanjutkan</p>
+            {{-- Password --}}
+            <input
+                id="password"
+                type="password"
+                name="password"
+                required
+                autocomplete="current-password"
+                placeholder="Password"
+                class="intro-x login__input form-control py-3 px-4 block mt-4
+                       {{ $errors->has('password') ? 'border-danger' : '' }}"
+            >
         </div>
 
-        @if ($errors->any())
-            <div class="alert-danger">
-                <i class="fas fa-exclamation-circle"></i>
-                <span>Email atau password salah.</span>
+        {{-- Remember Me + Forgot Password --}}
+        <div class="intro-x flex text-slate-600 dark:text-slate-500 text-xs sm:text-sm mt-4">
+            <div class="flex items-center mr-auto">
+                <input
+                    id="remember-me"
+                    name="remember"
+                    type="checkbox"
+                    class="form-check-input border mr-2"
+                    {{ old('remember') ? 'checked' : '' }}
+                >
+                <label class="cursor-pointer select-none" for="remember-me">Remember me</label>
             </div>
-        @endif
+            @if (Route::has('password.request'))
+                <a href="{{ route('password.request') }}">Forgot Password?</a>
+            @endif
+        </div>
 
-        <form method="POST" action="{{ route('login.post') }}">
-            @csrf
-            <div class="form-group">
-                <label for="email">Email</label>
-                <input type="email" id="email" name="email" class="form-control @error('email') is-invalid @enderror" value="{{ old('email') }}" required autofocus placeholder="admin@crm.test">
-            </div>
-
-            <div class="form-group">
-                <label for="password">Password</label>
-                <input type="password" id="password" name="password" class="form-control @error('password') is-invalid @enderror" required placeholder="••••••••">
-            </div>
-
-            <div class="form-options">
-                <label class="checkbox-container">
-                    <input type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
-                    <span>Ingat Saya</span>
-                </label>
-            </div>
-
-            <button type="submit" class="btn-login">
-                Login <i class="fas fa-arrow-right" style="font-size: 12px;"></i>
+        {{-- Tombol Submit --}}
+        <div class="intro-x mt-5 xl:mt-8 text-center xl:text-left">
+            <button type="submit" class="btn btn-primary py-3 px-4 w-full xl:w-32 xl:mr-3 align-top">
+                Login
             </button>
-        </form>
+            @if (Route::has('register'))
+                <a href="{{ route('register') }}"
+                   class="btn btn-outline-secondary py-3 px-4 w-full xl:w-32 mt-3 xl:mt-0 align-top inline-block text-center">
+                    Register
+                </a>
+            @endif
+        </div>
+
+    </form>
+
+    <div class="intro-x mt-10 xl:mt-24 text-slate-600 dark:text-slate-500 text-center xl:text-left">
+        By signing in, you agree to our
+        <a class="text-primary dark:text-slate-200" href="#">Terms and Conditions</a> &
+        <a class="text-primary dark:text-slate-200" href="#">Privacy Policy</a>
     </div>
-</body>
-</html>
+
+@endsection

@@ -15,21 +15,21 @@ class Followup extends Model
     protected $fillable = [
         'lead_id',
         'sales_id',
-        'metode',
-        'catatan',
-        'hasil',
-        'status_followup',
-        'tanggal_followup',
-        'jadwal_berikutnya',
+        'method',
+        'note',
+        'result',
+        'status',
+        'followup_date',
+        'next_schedule',
     ];
 
     protected $casts = [
-        'tanggal_followup' => 'datetime',
-        'jadwal_berikutnya' => 'datetime',
+        'followup_date' => 'datetime',
+        'next_schedule' => 'datetime',
     ];
 
     /**
-     * Followup dimiliki oleh satu Lead.
+     * Followup belongs to one Lead.
      */
     public function lead(): BelongsTo
     {
@@ -37,7 +37,7 @@ class Followup extends Model
     }
 
     /**
-     * Followup dimiliki oleh satu Sales (User).
+     * Followup belongs to one Sales (User).
      */
     public function sales(): BelongsTo
     {

@@ -3,42 +3,41 @@
 namespace Database\Seeders;
 
 use App\Models\History;
-use App\Models\Penjualan;
+use App\Models\Sale;
 use App\Models\User;
 use Illuminate\Database\Seeder;
 
 class HistorySeeder extends Seeder
 {
     /**
-     * Seed the histories table.
-     * Setiap penjualan mendapat 1-5 history (rata-rata ~3).
-     * Total estimasi: ~30.000 history.
+     * Run the database seeds.
      */
     public function run(): void
     {
         $userIds = User::pluck('id')->toArray();
-        $totalPenjualan = Penjualan::count();
-        $chunkSize = 500;
-        $totalCreated = 0;
+        $totalSales = Sale::count();
+        
+        $this->command->info("Seeding histories for {$totalSales} sales...");
 
-        Penjualan::select('id')->orderBy('id')->chunk($chunkSize, function ($penjualans) use ($userIds, &$totalCreated, $totalPenjualan) {
-            foreach ($penjualans as $penjualan) {
-                $jumlahHistory = fake()->numberBetween(1, 5);
-
-                History::factory()
-                    ->count($jumlahHistory)
-                    ->create([
-                        'penjualan_id' => $penjualan->id,
-                        'user_id' => fn () => fake()->randomElement($userIds),
-                    ]);
-
-                $totalCreated++;
+        Sale::select('id')->chunk(100, function ($sales) use ($userIds) {
+            $histories = [];
+            foreach ($sales as $sale) {
+                $count = rand(1, 2);
+                for ($i = 0; $i < $count; $i++) {
+                    $histories[] = [
+                        'sale_id'       => $sale->id,
+                        'action'        => fake()->randomElement(['Created', 'Called', 'Emailed', 'Meeting', 'Note Added']),
+                        'note'          => fake()->sentence(5),
+                        'status_before' => fake()->randomElement(['new', 'prospect', 'pending']),
+                        'status_after'  => fake()->randomElement(['contacted', 'won', 'lost']),
+                        'user_id'       => fake()->randomElement($userIds),
+                        'action_date'   => fake()->dateTimeBetween('-6 months', 'now')->format('Y-m-d H:i:s'),
+                        'created_at'    => now(),
+                        'updated_at'    => now(),
+                    ];
+                }
             }
-
-            $this->command->info("   📜 History: processed {$totalCreated} / {$totalPenjualan} penjualans");
+            History::insert($histories);
         });
-
-        $totalHistory = History::count();
-        $this->command->info("✅ {$totalHistory} histories created");
     }
 }

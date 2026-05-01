@@ -13,13 +13,13 @@ return new class extends Migration
     {
         Schema::create('histories', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('penjualan_id')->constrained('penjualans')->onDelete('cascade');
-            $table->string('aksi')->nullable();
-            $table->string('catatan')->nullable();
-            $table->string('status_sebelum')->nullable();
-            $table->string('status_sesudah')->nullable();
+            $table->foreignId('sale_id')->constrained('sales')->onDelete('cascade');
+            $table->string('action')->nullable();
+            $table->string('note')->nullable();
+            $table->string('status_before')->nullable();
+            $table->string('status_after')->nullable();
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
-            $table->dateTime('tanggal_aksi')->nullable();
+            $table->dateTime('action_date')->nullable();
             $table->timestamps();
         });
     }

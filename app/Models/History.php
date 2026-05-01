@@ -14,29 +14,29 @@ class History extends Model
     protected $table = 'histories';
 
     protected $fillable = [
-        'penjualan_id',
-        'aksi',
-        'catatan',
-        'status_sebelum',
-        'status_sesudah',
+        'sale_id',
+        'action',
+        'note',
+        'status_before',
+        'status_after',
         'user_id',
-        'tanggal_aksi',
+        'action_date',
     ];
 
     protected $casts = [
-        'tanggal_aksi' => 'datetime',
+        'action_date' => 'datetime',
     ];
 
     /**
-     * History dimiliki oleh satu Penjualan.
+     * History belongs to one Sale.
      */
-    public function penjualan(): BelongsTo
+    public function sale(): BelongsTo
     {
-        return $this->belongsTo(Penjualan::class);
+        return $this->belongsTo(Sale::class);
     }
 
     /**
-     * History dimiliki oleh satu User.
+     * History belongs to one User.
      */
     public function user(): BelongsTo
     {
@@ -44,7 +44,7 @@ class History extends Model
     }
 
     /**
-     * History memiliki banyak lead.
+     * History has many leads.
      */
     public function leads(): HasMany
     {

@@ -11,7 +11,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
-#[Fillable(['nama', 'email', 'password', 'role', 'aktif'])]
+#[Fillable(['name', 'email', 'password', 'role', 'is_active'])]
 #[Hidden(['password', 'remember_token'])]
 class User extends Authenticatable
 {
@@ -28,20 +28,20 @@ class User extends Authenticatable
         return [
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
-            'aktif' => 'boolean',
+            'is_active' => 'boolean',
         ];
     }
 
     /**
-     * User memiliki banyak penjualan.
+     * User has many sales.
      */
-    public function penjualans(): HasMany
+    public function sales(): HasMany
     {
-        return $this->hasMany(Penjualan::class);
+        return $this->hasMany(Sale::class);
     }
 
     /**
-     * User memiliki banyak history.
+     * User has many histories.
      */
     public function histories(): HasMany
     {
@@ -49,7 +49,7 @@ class User extends Authenticatable
     }
 
     /**
-     * User (sebagai sales) memiliki banyak lead.
+     * User (as sales) has many leads.
      */
     public function leads(): HasMany
     {
@@ -57,7 +57,7 @@ class User extends Authenticatable
     }
 
     /**
-     * User (sebagai sales) memiliki banyak followup.
+     * User (as sales) has many followups.
      */
     public function followups(): HasMany
     {

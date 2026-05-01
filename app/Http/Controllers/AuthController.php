@@ -34,7 +34,7 @@ class AuthController extends Controller
 
         $request->session()->regenerate();
 
-        return redirect()->intended(route('penjualan.index', absolute: false));
+        return redirect()->intended(route('sales.index', absolute: false));
     }
 
     /**
