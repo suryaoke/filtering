@@ -2,7 +2,7 @@
 
 namespace App\Providers;
 
-use App\Repositories\Contracts\SalesRepositoryInterface;
+use App\Interface\SalesRepositoryInterface;
 use App\Repositories\SalesRepository;
 use Illuminate\Support\ServiceProvider;
 
@@ -17,7 +17,7 @@ class RepositoryServiceProvider extends ServiceProvider
         SalesRepositoryInterface::class => SalesRepository::class,
         \App\Interface\ProductRepositoryInterface::class => \App\Repositories\ProductRepository::class,
         \App\Interface\AuthRepositoryInterface::class => \App\Repositories\AuthRepository::class,
-        \App\Repositories\Contracts\DashboardRepositoryInterface::class => \App\Repositories\DashboardRepository::class,
+        \App\Interface\DashboardRepositoryInterface::class => \App\Repositories\DashboardRepository::class,
     ];
 
     /**

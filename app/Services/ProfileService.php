@@ -7,9 +7,7 @@ use Illuminate\Support\Facades\Hash;
 
 class ProfileService
 {
-    /**
-     * Update the user's profile.
-     */
+   
     public function update(User $user, array $data): User
     {
         if (isset($data['password']) && !empty($data['password'])) {

@@ -11,9 +11,7 @@ class DashboardController extends Controller
         protected DashboardService $dashboardService
     ) {}
 
-    /**
-     * Tampilkan halaman dashboard.
-     */
+
     public function index(): View
     {
         $data = $this->dashboardService->getDashboardData();

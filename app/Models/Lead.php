@@ -28,33 +28,21 @@ class Lead extends Model
         'distribution_date' => 'datetime',
     ];
 
-    /**
-     * Lead belongs to one History.
-     */
     public function history(): BelongsTo
     {
         return $this->belongsTo(History::class);
     }
 
-    /**
-     * Lead belongs to one Sale.
-     */
     public function sale(): BelongsTo
     {
         return $this->belongsTo(Sale::class);
     }
 
-    /**
-     * Lead belongs to one Sales (User).
-     */
     public function sales(): BelongsTo
     {
         return $this->belongsTo(User::class, 'sales_id');
     }
 
-    /**
-     * Lead has many followups.
-     */
     public function followups(): HasMany
     {
         return $this->hasMany(Followup::class);

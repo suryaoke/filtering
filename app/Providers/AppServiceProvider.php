@@ -8,8 +8,10 @@ use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Blade;
 use App\Interface\AuthRepositoryInterface;
 use App\Interface\ProductRepositoryInterface;
+use App\Interface\SalesRepositoryInterface;
 use App\Repositories\AuthRepository;
 use App\Repositories\ProductRepository;
+use App\Repositories\SalesRepository;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -20,7 +22,6 @@ class AppServiceProvider extends ServiceProvider
             return new \App\Helpers\ThemeHelper();
         });
 
-        // ── Binding Repository ──────────────────────────────────────────────
         $this->app->bind(
             AuthRepositoryInterface::class,
             AuthRepository::class,
@@ -30,6 +31,8 @@ class AppServiceProvider extends ServiceProvider
             ProductRepositoryInterface::class,
             ProductRepository::class,
         );
+
+        $this->app->bind(SalesRepositoryInterface::class, SalesRepository::class);
     }
 
     public function boot(): void

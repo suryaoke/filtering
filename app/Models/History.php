@@ -27,25 +27,17 @@ class History extends Model
         'action_date' => 'datetime',
     ];
 
-    /**
-     * History belongs to one Sale.
-     */
     public function sale(): BelongsTo
     {
         return $this->belongsTo(Sale::class);
     }
 
-    /**
-     * History belongs to one User.
-     */
+   
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
     }
 
-    /**
-     * History has many leads.
-     */
     public function leads(): HasMany
     {
         return $this->hasMany(Lead::class);

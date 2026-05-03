@@ -26,9 +26,7 @@ class Product extends Model
         'is_active' => 'boolean',
     ];
 
-    /**
-     * Get the sales for the product.
-     */
+  
     public function sales(): HasMany
     {
         return $this->hasMany(Sale::class);

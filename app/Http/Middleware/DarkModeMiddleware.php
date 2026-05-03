@@ -9,7 +9,7 @@ class DarkModeMiddleware
 {
     public function handle(Request $request, Closure $next)
     {
-        // Simpan preferensi dark mode dari cookie ke session
+       
         if ($request->has('theme')) {
             $theme = $request->input('theme') === 'dark' ? 'dark' : 'light';
             session(['theme' => $theme]);

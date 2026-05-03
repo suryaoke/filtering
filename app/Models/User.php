@@ -40,25 +40,16 @@ class User extends Authenticatable
         return $this->hasMany(Sale::class);
     }
 
-    /**
-     * User has many histories.
-     */
     public function histories(): HasMany
     {
         return $this->hasMany(History::class);
     }
 
-    /**
-     * User (as sales) has many leads.
-     */
     public function leads(): HasMany
     {
         return $this->hasMany(Lead::class, 'sales_id');
     }
 
-    /**
-     * User (as sales) has many followups.
-     */
     public function followups(): HasMany
     {
         return $this->hasMany(Followup::class, 'sales_id');

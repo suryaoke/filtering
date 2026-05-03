@@ -15,17 +15,13 @@ class AuthController extends Controller
         protected AuthService $authService
     ) {}
 
-    /**
-     * Show the application's login form.
-     */
+  
     public function showLoginForm(): View
     {
         return view('auth.login');
     }
 
-    /**
-     * Handle a login request to the application.
-     */
+   
     public function login(LoginRequest $request): RedirectResponse
     {
         try {
@@ -41,9 +37,6 @@ class AuthController extends Controller
         }
     }
 
-    /**
-     * Log the user out of the application.
-     */
     public function logout(Request $request): RedirectResponse
     {
         $this->authService->logout();

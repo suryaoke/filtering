@@ -6,7 +6,7 @@ use App\Models\Sale;
 use App\Models\User;
 use App\Models\Product;
 use App\Models\Followup;
-use App\Repositories\Contracts\DashboardRepositoryInterface;
+use App\Interface\DashboardRepositoryInterface;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
 

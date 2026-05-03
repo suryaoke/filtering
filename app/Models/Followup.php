@@ -28,17 +28,12 @@ class Followup extends Model
         'next_schedule' => 'datetime',
     ];
 
-    /**
-     * Followup belongs to one Lead.
-     */
+
     public function lead(): BelongsTo
     {
         return $this->belongsTo(Lead::class);
     }
 
-    /**
-     * Followup belongs to one Sales (User).
-     */
     public function sales(): BelongsTo
     {
         return $this->belongsTo(User::class, 'sales_id');

@@ -29,33 +29,32 @@ class Sale extends Model
         'input_date' => 'datetime',
     ];
 
-    /**
-     * Sale belongs to one User.
-     */
+    protected static function boot(): void
+    {
+        parent::boot();
+
+        static::creating(function ($sale) {
+            $sale->input_date = $sale->input_date ?? now();
+        });
+    }
+
+
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
     }
 
-    /**
-     * Get the product that the sale belongs to.
-     */
     public function product(): BelongsTo
     {
         return $this->belongsTo(Product::class);
     }
 
-    /**
-     * Sale has many histories.
-     */
+
     public function histories(): HasMany
     {
         return $this->hasMany(History::class);
     }
 
-    /**
-     * Sale has many leads.
-     */
     public function leads(): HasMany
     {
         return $this->hasMany(Lead::class);
