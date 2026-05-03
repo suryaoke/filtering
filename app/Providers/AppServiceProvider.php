@@ -6,9 +6,9 @@ namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Blade;
-use App\Interface\AuthRepositoryInterface;
-use App\Interface\ProductRepositoryInterface;
-use App\Interface\SalesRepositoryInterface;
+use App\Interfaces\AuthRepositoryInterface;
+use App\Interfaces\ProductRepositoryInterface;
+use App\Interfaces\SalesRepositoryInterface;
 use App\Repositories\AuthRepository;
 use App\Repositories\ProductRepository;
 use App\Repositories\SalesRepository;

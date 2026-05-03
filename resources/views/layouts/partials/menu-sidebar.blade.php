@@ -12,7 +12,7 @@
         <div class="side-menu__title">
             Dashboard
             <div class="side-menu__sub-icon {{ request()->routeIs('dashboard') ? 'transform rotate-180' : '' }}">
-                <i data-lucide="chevron-down"></i>
+               
             </div>
         </div>
     </a>
@@ -31,16 +31,23 @@
 </li>
 
 <li>
-    <a href="javascript:;" class="side-menu {{ request()->routeIs('sales.*') ? 'side-menu--active' : '' }}">
+    <a href="javascript:;" class="side-menu {{ request()->routeIs('sales.*') || request()->routeIs('customers.*') ? 'side-menu--active' : '' }}">
         <div class="side-menu__icon"><i data-lucide="shopping-bag"></i></div>
         <div class="side-menu__title">
             Sales
-            <div class="side-menu__sub-icon {{ request()->routeIs('sales.*') ? 'transform rotate-180' : '' }}">
+            <div class="side-menu__sub-icon {{ request()->routeIs('sales.*') || request()->routeIs('customers.*') ? 'transform rotate-180' : '' }}">
                 <i data-lucide="chevron-down"></i>
             </div>
         </div>
     </a>
-    <ul class="{{ request()->routeIs('sales.*') ? 'side-menu__sub-open' : '' }}">
+    <ul class="{{ request()->routeIs('sales.*') || request()->routeIs('customers.*') ? 'side-menu__sub-open' : '' }}">
+        <li>
+            <a href="{{ route('customers.index') }}"
+               class="side-menu {{ request()->routeIs('customers.*') ? 'side-menu--active' : '' }}">
+                <div class="side-menu__icon"><i data-lucide="users"></i></div>
+                <div class="side-menu__title">Master Customer</div>
+            </a>
+        </li>
         <li>
             <a href="{{ route('sales.index') }}"
                class="side-menu {{ request()->routeIs('sales.index') ? 'side-menu--active' : '' }}">

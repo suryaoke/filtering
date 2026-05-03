@@ -2,7 +2,7 @@
 
 namespace App\Livewire;
 
-use App\Interface\ProductRepositoryInterface;
+use App\Interfaces\ProductRepositoryInterface;
 use Livewire\Component;
 use Livewire\WithPagination;
 

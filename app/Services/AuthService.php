@@ -2,7 +2,7 @@
 
 namespace App\Services;
 
-use App\Interface\AuthRepositoryInterface;
+use App\Interfaces\AuthRepositoryInterface;
 use Exception;
 
 class AuthService

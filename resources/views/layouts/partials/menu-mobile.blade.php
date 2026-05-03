@@ -9,7 +9,7 @@
         <div class="menu__icon"><i data-lucide="home"></i></div>
         <div class="menu__title">
             Dashboard
-            <i data-lucide="chevron-down" class="menu__sub-icon {{ request()->routeIs('dashboard') ? 'transform rotate-180' : '' }}"></i>
+
         </div>
     </a>
 </li>
@@ -38,10 +38,17 @@
         <div class="menu__icon"><i data-lucide="shopping-bag"></i></div>
         <div class="menu__title">
             Sales
-            <i data-lucide="chevron-down" class="menu__sub-icon {{ request()->routeIs('sales.*') ? 'transform rotate-180' : '' }}"></i>
+            <i data-lucide="chevron-down" class="menu__sub-icon {{ request()->routeIs('sales.*') || request()->routeIs('customers.*') ? 'transform rotate-180' : '' }}"></i>
         </div>
     </a>
-    <ul class="{{ request()->routeIs('sales.*') ? 'menu__sub-open' : '' }}">
+    <ul class="{{ request()->routeIs('sales.*') || request()->routeIs('customers.*') ? 'menu__sub-open' : '' }}">
+        <li>
+            <a href="{{ route('customers.index') }}"
+               class="menu {{ request()->routeIs('customers.*') ? 'menu--active' : '' }}">
+                <div class="menu__icon"><i data-lucide="users"></i></div>
+                <div class="menu__title">Master Customer</div>
+            </a>
+        </li>
         <li>
             <a href="{{ route('sales.index') }}"
                class="menu {{ request()->routeIs('sales.index') ? 'menu--active' : '' }}">

@@ -2,7 +2,7 @@
 
 namespace App\Repositories;
 
-use App\Interface\AuthRepositoryInterface;
+use App\Interfaces\AuthRepositoryInterface;
 use Exception;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;

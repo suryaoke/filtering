@@ -5,7 +5,8 @@ namespace App\Services;
 use App\Models\Sale;
 use App\Models\User;
 use App\Models\Product;
-use App\Interface\SalesRepositoryInterface;
+use App\Models\Customer;
+use App\Interfaces\SalesRepositoryInterface;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 
 class SalesService
@@ -26,6 +27,9 @@ class SalesService
         return \Yajra\DataTables\DataTables::of($query)
             ->addColumn('action', function ($row) {
                 return view('sales.actions', compact('row'))->render();
+            })
+            ->addColumn('customer_name', function ($row) {
+                return $row->customer ? $row->customer->name : '-';
             })
             ->editColumn('input_date', function ($row) {
                 return $row->input_date ? $row->input_date->format('d M Y') : '-';
@@ -70,6 +74,10 @@ class SalesService
 
             'products' => Product::select('id', 'name')
                 ->where('is_active', true)
+                ->orderBy('name')
+                ->get(),
+
+            'customers' => Customer::select('id', 'name')
                 ->orderBy('name')
                 ->get(),
         ];

@@ -45,6 +45,7 @@
             <table id="sales-table" class="table table-report mt-2">
                 <thead>
                     <tr>
+                        <th class="whitespace-nowrap">CUSTOMER</th>
                         <th class="whitespace-nowrap">COMPANY</th>
                         <th class="whitespace-nowrap">CONTACT</th>
                         <th class="whitespace-nowrap">INDUSTRY</th>
@@ -70,6 +71,15 @@
                     @csrf
                     <input type="hidden" name="_method" id="form-method" value="POST">
                     <div class="modal-body grid grid-cols-12 gap-4 gap-y-3">
+                        <div class="col-span-12">
+                            <label for="customer_id" class="form-label">Customer</label>
+                            <select id="customer_id" name="customer_id" class="form-select">
+                                <option value="">-- Select Customer --</option>
+                                @foreach($customers as $customer)
+                                    <option value="{{ $customer->id }}">{{ $customer->name }}</option>
+                                @endforeach
+                            </select>
+                        </div>
                         <div class="col-span-12">
                             <label for="product_id" class="form-label">Product</label>
                             <select id="product_id" name="product_id" class="form-select" required>
@@ -136,6 +146,10 @@
                 </div>
                 <div class="modal-body p-5">
                     <div class="grid grid-cols-12 gap-4">
+                        <div class="col-span-12">
+                            <div class="text-slate-500 text-xs">Customer</div>
+                            <div id="detail-customer" class="mt-1 font-medium">-</div>
+                        </div>
                         <div class="col-span-12">
                             <div class="text-slate-500 text-xs">Product</div>
                             <div id="detail-product" class="mt-1 font-medium">-</div>
@@ -241,6 +255,7 @@
                     }
                 },
                 columns: [
+                    { data: 'customer_name', name: 'customer_name', orderable: false, searchable: false, defaultContent: '-' },
                     { data: 'company_name', name: 'company_name' },
                     { 
                         data: 'contact_name', 
@@ -304,6 +319,7 @@
                 $('#main-form').attr('action', `/sales/${id}`);
                 
                 // Populate fields
+                $('#customer_id').val(data.customer_id);
                 $('#product_id').val(data.product_id);
                 $('#company_name').val(data.company_name);
                 $('#contact_name').val(data.contact_name);
@@ -326,6 +342,7 @@
 
         function showData(id) {
             $.get(`/sales/${id}`, function(data) {
+                $('#detail-customer').text(data.customer ? data.customer.name : '-');
                 $('#detail-product').text(data.product ? data.product.name : '-');
                 $('#detail-company').text(data.company_name);
                 $('#detail-contact').text(data.contact_name);

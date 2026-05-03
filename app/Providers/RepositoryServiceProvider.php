@@ -2,7 +2,7 @@
 
 namespace App\Providers;
 
-use App\Interface\SalesRepositoryInterface;
+use App\Interfaces\SalesRepositoryInterface;
 use App\Repositories\SalesRepository;
 use Illuminate\Support\ServiceProvider;
 
@@ -15,9 +15,10 @@ class RepositoryServiceProvider extends ServiceProvider
      */
     protected array $repositories = [
         SalesRepositoryInterface::class => SalesRepository::class,
-        \App\Interface\ProductRepositoryInterface::class => \App\Repositories\ProductRepository::class,
-        \App\Interface\AuthRepositoryInterface::class => \App\Repositories\AuthRepository::class,
-        \App\Interface\DashboardRepositoryInterface::class => \App\Repositories\DashboardRepository::class,
+        \App\Interfaces\ProductRepositoryInterface::class => \App\Repositories\ProductRepository::class,
+        \App\Interfaces\AuthRepositoryInterface::class => \App\Repositories\AuthRepository::class,
+        \App\Interfaces\DashboardRepositoryInterface::class => \App\Repositories\DashboardRepository::class,
+        \App\Interfaces\CustomerRepositoryInterface::class => \App\Repositories\CustomerRepository::class,
     ];
 
     /**

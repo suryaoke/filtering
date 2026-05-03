@@ -59,4 +59,8 @@ class Sale extends Model
     {
         return $this->hasMany(Lead::class);
     }
+    public function customer(): BelongsTo
+{
+    return $this->belongsTo(Customer::class);
+}
 }

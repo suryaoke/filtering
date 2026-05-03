@@ -3,7 +3,7 @@
 namespace App\Repositories;
 
 use App\Models\Sale;
-use App\Interface\SalesRepositoryInterface;
+use App\Interfaces\SalesRepositoryInterface;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\Builder;
 
@@ -15,7 +15,7 @@ class SalesRepository implements SalesRepositoryInterface
 
     public function getDataTableQuery(array $filters = []): Builder
     {
-        $query = $this->model->newQuery()->with(['user', 'product']);
+        $query = $this->model->newQuery()->with(['user', 'product', 'customer']);
 
         if (!empty($filters['search'])) {
             $search = $filters['search'];
@@ -70,12 +70,12 @@ class SalesRepository implements SalesRepositoryInterface
 
     public function findById(int $id): ?Sale
     {
-        return $this->model->with(['user', 'product'])->find($id);
+        return $this->model->with(['user', 'product', 'customer'])->find($id);
     }
 
     public function findOrFail(int $id): Sale
     {
-        return $this->model->with(['user', 'product'])->findOrFail($id);
+        return $this->model->with(['user', 'product', 'customer'])->findOrFail($id);
     }
 
     public function create(array $data): Sale
@@ -88,7 +88,7 @@ class SalesRepository implements SalesRepositoryInterface
         $sale = $this->findOrFail($id);
         $sale->update($data);
 
-        return $sale->fresh(['user', 'product']); // ✅ fresh dengan semua relasi
+        return $sale->fresh(['user', 'product', 'customer']);
     }
 
     public function delete(int $id): bool

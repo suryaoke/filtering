@@ -1,0 +1,28 @@
+<?php
+
+namespace App\Http\Requests;
+
+use Illuminate\Foundation\Http\FormRequest;
+
+class UpdateCustomerRequest extends FormRequest
+{
+    public function authorize(): bool
+    {
+        return true;
+    }
+
+    public function rules(): array
+    {
+        $id = $this->route('customer');
+
+        return [
+            'name' => 'required|string|max:255',
+            'email' => 'nullable|email|max:255|unique:customers,email,' . $id,
+            'phone' => 'nullable|string|max:50',
+            'address' => 'nullable|string',
+            'city' => 'nullable|string|max:100',
+            'province' => 'nullable|string|max:100',
+            'gender' => 'nullable|in:male,female',
+        ];
+    }
+}

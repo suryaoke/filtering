@@ -22,6 +22,7 @@ class StoreSaleRequest extends FormRequest
     public function rules(): array
     {
         return [
+            'customer_id'  => 'nullable|exists:customers,id',
             'company_name' => 'required|string|max:255',
             'contact_name' => 'required|string|max:255',
             'email'        => 'nullable|email|max:255',
@@ -41,6 +42,7 @@ class StoreSaleRequest extends FormRequest
     public function attributes(): array
     {
         return [
+            'customer_id'  => 'Customer',
             'company_name' => 'Company Name',
             'contact_name' => 'Contact Name',
             'email'        => 'Email Address',
