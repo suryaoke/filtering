@@ -6,6 +6,10 @@ namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Blade;
+use App\Interface\AuthRepositoryInterface;
+use App\Interface\ProductRepositoryInterface;
+use App\Repositories\AuthRepository;
+use App\Repositories\ProductRepository;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -17,23 +21,25 @@ class AppServiceProvider extends ServiceProvider
         });
 
         // ── Binding Repository ──────────────────────────────────────────────
-        // Tambah binding repository pattern di sini:
-        // $this->app->bind(
-        //     \App\Repositories\Interfaces\UserRepositoryInterface::class,
-        //     \App\Repositories\Eloquent\EloquentUserRepository::class,
-        // );
+        $this->app->bind(
+            AuthRepositoryInterface::class,
+            AuthRepository::class,
+        );
+
+        $this->app->bind(
+            ProductRepositoryInterface::class,
+            ProductRepository::class,
+        );
     }
 
     public function boot(): void
     {
         // ── Blade Directive: @theme ─────────────────────────────────────────
-        // Pemakaian di Blade: @theme  → menghasilkan 'dark' atau 'light'
         Blade::directive('theme', function () {
             return "<?php echo session('theme', request()->cookie('theme', 'light')); ?>";
         });
 
         // ── Blade Directive: @isDark ────────────────────────────────────────
-        // Pemakaian: @isDark ... @endIsDark
         Blade::directive('isDark', function () {
             return "<?php if (session('theme', request()->cookie('theme', 'light')) === 'dark'): ?>";
         });

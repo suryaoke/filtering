@@ -25,9 +25,9 @@ class FollowupSeeder extends Seeder
                     $followups[] = [
                         'lead_id'           => $lead->id,
                         'sales_id'          => $lead->sales_id,
-                        'method'            => fake()->randomElement(['Call', 'Email', 'WhatsApp', 'Visit']),
-                        'note'              => fake()->sentence(10),
-                        'result'            => fake()->sentence(5),
+                        'method'            => fake()->randomElement(['Call', 'WhatsApp', 'Showroom Visit', 'Home Visit']),
+                        'note'              => fake()->randomElement(['Follow up regarding the NMAX credit simulation', 'Reminded customer about the weekend promo', 'Customer asked about PCX availability', 'Discussed trade-in options for their old bike', 'Sent the latest sport bike catalog']),
+                        'result'            => fake()->randomElement(['Customer needs time to think', 'Agreed to visit showroom tomorrow', 'Leasing application submitted', 'Customer bought from competitor', 'Waiting for spouse approval']),
                         'status'            => fake()->randomElement(['Interested', 'Not Interested', 'Call Back']),
                         'followup_date'     => fake()->dateTimeBetween('-1 month', 'now')->format('Y-m-d H:i:s'),
                         'next_schedule'     => fake()->dateTimeBetween('now', '+1 month')->format('Y-m-d H:i:s'),

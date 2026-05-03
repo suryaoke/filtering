@@ -19,15 +19,18 @@ class ProductFactory extends Factory
      */
     public function definition(): array
     {
-        $categories = ['Software', 'Hardware', 'Service', 'Consulting', 'License'];
-        $name = fake()->unique()->words(3, true);
+        $categories = ['Matic', 'Sport', 'Cub', 'Off-Road', 'Big Bike', 'Electric'];
+        $brands = ['Honda', 'Yamaha', 'Suzuki', 'Kawasaki', 'Vespa', 'Ducati', 'BMW', 'KTM'];
+        $models = ['Vario', 'Beat', 'NMAX', 'PCX', 'CBR', 'Ninja', 'R15', 'GSX', 'Vespa Sprint', 'Primavera', 'KLX', 'CRF', 'Panigale', 'S1000RR'];
+        
+        $name = fake()->randomElement($brands) . ' ' . fake()->randomElement($models) . ' ' . fake()->numberBetween(2020, 2024);
         
         return [
-            'name'        => ucfirst($name),
-            'sku'         => strtoupper(fake()->unique()->lexify('PROD-????-????')),
+            'name'        => $name,
+            'sku'         => strtoupper(fake()->unique()->lexify('MTR-????-????')),
             'description' => fake()->sentence(),
-            'price'       => fake()->randomFloat(2, 50, 5000),
-            'stock'       => fake()->numberBetween(0, 1000),
+            'price'       => fake()->randomFloat(0, 15000000, 500000000), // Prices in IDR for realism
+            'stock'       => fake()->numberBetween(1, 50),
             'category'    => fake()->randomElement($categories),
             'is_active'   => true,
         ];

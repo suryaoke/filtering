@@ -2,10 +2,12 @@
 
 namespace App\Repositories;
 
+use App\Interface\ProductRepositoryInterface;
 use App\Models\Product;
-use App\Repositories\Contracts\ProductRepositoryInterface;
+use Exception;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Facades\DB;
 
 class ProductRepository implements ProductRepositoryInterface
 {
@@ -24,8 +26,8 @@ class ProductRepository implements ProductRepositoryInterface
             $search = $filters['search'];
             $query->where(function ($q) use ($search) {
                 $q->where('name', 'like', "%{$search}%")
-                  ->orWhere('sku', 'like', "%{$search}%")
-                  ->orWhere('category', 'like', "%{$search}%");
+                    ->orWhere('sku', 'like', "%{$search}%")
+                    ->orWhere('category', 'like', "%{$search}%");
             });
         }
 
@@ -79,7 +81,15 @@ class ProductRepository implements ProductRepositoryInterface
      */
     public function create(array $data): Product
     {
-        return $this->model->create($data);
+        DB::beginTransaction();
+        try {
+            $product = $this->model->create($data);
+            DB::commit();
+            return $product;
+        } catch (Exception $e) {
+            DB::rollBack();
+            throw new Exception($e->getMessage());
+        }
     }
 
     /**

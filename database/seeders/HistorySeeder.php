@@ -26,8 +26,8 @@ class HistorySeeder extends Seeder
                 for ($i = 0; $i < $count; $i++) {
                     $histories[] = [
                         'sale_id'       => $sale->id,
-                        'action'        => fake()->randomElement(['Created', 'Called', 'Emailed', 'Meeting', 'Note Added']),
-                        'note'          => fake()->sentence(5),
+                        'action'        => fake()->randomElement(['Test Drive', 'Showroom Visit', 'WhatsApp Follow-up', 'Sent Quotation', 'Credit Survey', 'Unit Delivery']),
+                        'note'          => fake()->randomElement(['Customer interested in credit scheme', 'Requested a test drive for sport model', 'Waiting for leasing approval', 'Comparing prices with other dealer', 'Unit ready for delivery', 'Customer requested specific color']),
                         'status_before' => fake()->randomElement(['new', 'prospect', 'pending']),
                         'status_after'  => fake()->randomElement(['contacted', 'won', 'lost']),
                         'user_id'       => fake()->randomElement($userIds),

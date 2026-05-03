@@ -2,24 +2,34 @@
 
 namespace App\Repositories;
 
-use App\Repositories\Contracts\AuthRepositoryInterface;
+use App\Interface\AuthRepositoryInterface;
+use Exception;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class AuthRepository implements AuthRepositoryInterface
 {
-    /**
-     * {@inheritdoc}
-     */
-    public function attemptLogin(array $credentials, bool $remember = false): bool
+    public function login(array $data): bool
     {
-        return Auth::attempt($credentials, $remember);
+        DB::beginTransaction();
+
+        try {
+            if (!Auth::guard('web')->attempt($data)) {
+                throw new Exception('Email atau password salah.');
+            }
+
+            DB::commit();
+
+            return true;
+        } catch (Exception $e) {
+            DB::rollBack();
+
+            throw new Exception($e->getMessage());
+        }
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function logout(): void
     {
-        Auth::logout();
+        Auth::guard('web')->logout();
     }
 }

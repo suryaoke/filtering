@@ -2,8 +2,9 @@
 
 namespace App\Services;
 
+use App\Interface\ProductRepositoryInterface;
 use App\Models\Product;
-use App\Repositories\Contracts\ProductRepositoryInterface;
+
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 
 class ProductService

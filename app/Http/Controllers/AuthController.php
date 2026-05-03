@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\LoginRequest;
 use App\Services\AuthService;
+use Exception;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
@@ -27,14 +28,17 @@ class AuthController extends Controller
      */
     public function login(LoginRequest $request): RedirectResponse
     {
-        $this->authService->login(
-            $request->only('email', 'password'),
-            $request->boolean('remember')
-        );
+        try {
+            $this->authService->login($request->validated());
 
-        $request->session()->regenerate();
+            $request->session()->regenerate();
 
-        return redirect()->intended(route('sales.index', absolute: false));
+            return redirect()->route('dashboard');
+        } catch (Exception $e) {
+            return back()
+                ->withErrors(['email' => $e->getMessage()])
+                ->withInput($request->only('email'));
+        }
     }
 
     /**
@@ -47,6 +51,6 @@ class AuthController extends Controller
         $request->session()->invalidate();
         $request->session()->regenerateToken();
 
-        return redirect('/login');
+        return redirect()->route('login');
     }
 }

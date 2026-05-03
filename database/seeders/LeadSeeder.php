@@ -27,7 +27,7 @@ class LeadSeeder extends Seeder
                         'sale_id'           => $history->sale_id,
                         'sales_id'          => $history->user_id,
                         'lead_name'         => fake()->name(),
-                        'product_interest'  => fake()->word(),
+                        'product_interest'  => fake()->randomElement(['Matic 125cc', 'Matic 150cc', 'Sport 250cc', 'Adventure Bike', 'Daily Commuter', 'Electric Scooter']),
                         'priority'          => fake()->randomElement(['Low', 'Medium', 'High']),
                         'lead_status'       => fake()->randomElement(['open', 'closed', 'junk']),
                         'distribution_date' => fake()->dateTimeBetween('-3 months', 'now')->format('Y-m-d H:i:s'),

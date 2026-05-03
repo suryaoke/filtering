@@ -262,7 +262,11 @@
                     }
                 },
                 drawCallback: function() {
-                    lucide.createIcons();
+                    lucide.createIcons({
+                        icons: lucide.icons,
+                        "stroke-width": 1.5,
+                        nameAttr: "data-lucide"
+                    });
                 }
             });
 

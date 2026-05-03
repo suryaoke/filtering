@@ -105,12 +105,12 @@
                         </li>
                         <li><hr class="dropdown-divider border-white/[0.08]"></li>
                         <li>
-                            <a href="#" class="dropdown-item hover:bg-white/5">
+                            <a href="{{ route('profile.edit') }}" class="dropdown-item hover:bg-white/5">
                                 <i data-lucide="user" class="w-4 h-4 mr-2"></i> Profile
                             </a>
                         </li>
                         <li>
-                            <a href="#" class="dropdown-item hover:bg-white/5">
+                            <a href="{{ route('profile.edit') }}" class="dropdown-item hover:bg-white/5">
                                 <i data-lucide="lock" class="w-4 h-4 mr-2"></i> Reset Password
                             </a>
                         </li>

@@ -2,8 +2,8 @@
 
 namespace App\Services;
 
-use App\Repositories\Contracts\AuthRepositoryInterface;
-use Illuminate\Validation\ValidationException;
+use App\Interface\AuthRepositoryInterface;
+use Exception;
 
 class AuthService
 {
@@ -11,30 +11,11 @@ class AuthService
         protected AuthRepositoryInterface $authRepository
     ) {}
 
-    /**
-     * Attempt to login the user.
-     *
-     * @param array $credentials
-     * @param bool $remember
-     * @return bool
-     * @throws ValidationException
-     */
-    public function login(array $credentials, bool $remember = false): bool
+    public function login(array $data): bool
     {
-        if (!$this->authRepository->attemptLogin($credentials, $remember)) {
-            throw ValidationException::withMessages([
-                'email' => __('auth.failed'),
-            ]);
-        }
-
-        return true;
+        return $this->authRepository->login($data);
     }
 
-    /**
-     * Log out the current user.
-     *
-     * @return void
-     */
     public function logout(): void
     {
         $this->authRepository->logout();

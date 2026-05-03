@@ -21,26 +21,7 @@
 <li class="menu__devider my-6"></li>
 
 {{-- CRUD --}}
-<li>
-    <a href="javascript:;" class="side-menu {{ request()->routeIs('users.*') ? 'side-menu--active' : '' }}">
-        <div class="side-menu__icon"><i data-lucide="edit"></i></div>
-        <div class="side-menu__title">
-            Master Data
-            <div class="side-menu__sub-icon {{ request()->routeIs('users.*') ? 'transform rotate-180' : '' }}">
-                <i data-lucide="chevron-down"></i>
-            </div>
-        </div>
-    </a>
-    <ul class="{{ request()->routeIs('users.*') ? 'side-menu__sub-open' : '' }}">
-        <li>
-            <a href="#"
-               class="side-menu {{ request()->routeIs('users.index') ? 'side-menu--active' : '' }}">
-                <div class="side-menu__icon"><i data-lucide="users"></i></div>
-                <div class="side-menu__title">Users</div>
-            </a>
-        </li>
-    </ul>
-</li>
+
 
 <li>
     <a href="{{ route('products.index') }}" class="side-menu {{ request()->routeIs('products.*') ? 'side-menu--active' : '' }}">
@@ -74,7 +55,7 @@
 
 {{-- Profile --}}
 <li>
-    <a href="#" class="side-menu {{ request()->routeIs('profile.*') ? 'side-menu--active' : '' }}">
+    <a href="{{ route('profile.edit') }}" class="side-menu {{ request()->routeIs('profile.*') ? 'side-menu--active' : '' }}">
         <div class="side-menu__icon"><i data-lucide="user"></i></div>
         <div class="side-menu__title">Profile</div>
     </a>
