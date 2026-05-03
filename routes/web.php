@@ -11,7 +11,7 @@ Route::get('/', function () {
     return redirect()->route('dashboard');
 });
 
-// Authentication Routes
+// Authentication Routes okes
 Route::middleware('guest')->group(function () {
     Route::get('login', [AuthController::class, 'showLoginForm'])->name('login');
     Route::post('login', [AuthController::class, 'login'])->name('login.post');
